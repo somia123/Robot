@@ -8,11 +8,12 @@ ${rowcount}       ${EMPTY}
 ${INFOLIST}       ${EMPTY}
 ${LicenseeAccount}    ${EMPTY}
 ${ContractId}     ${EMPTY}
+${Browser}    chrome
 
 *** Test Cases ***
 TC01
     [Tags]    T1    Tag1    Suite1
-    Open Browser    https://nokiausa--rmdev2.cs107.my.salesforce.com/    chrome
+    Open Browser    https://nokiausa--rmdev2.cs107.my.salesforce.com/    ${Browser}
     Maximize Browser Window
     Wait Until Page Contains Element    //input[@id='username']    30s
     Input Text    //input[@id='username']    test.general04@nokia.com
