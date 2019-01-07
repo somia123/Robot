@@ -18,5 +18,8 @@ TC03
     Close Browser
 
 TC06
-    [Tags]    T7    T8
+    [Tags]    T1    Tag3    Suite1
+    Open Browser    https://google.com    chrome
+    Maximize Browser Window
+    Close Browser
 
