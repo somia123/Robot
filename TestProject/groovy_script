@@ -1,0 +1,37 @@
+#!/usr/bin/env groovy
+
+properties([
+  parameters([
+    stringParam(
+      name: 'TAG',
+      defaultValue: 'tagname'
+    ),
+    stringParam(
+      name: 'ENV',
+      defaultValue: 'env'
+    ),
+    stringParam(
+      name: 'SUITE',
+ 
+      defaultValue: 'xyz'
+    )
+  ])
+])
+
+
+library 'libraryname' _
+  robotTest (
+      scm_url: "",
+      git_branch: "",
+      robot_opts: "-v ENV:${params.ENV} " +
+                  "--include ${params.TAG} " +
+                  "--randomize suites " +
+                  "--settag ${params.ENV}",
+      python_cmd: "python3",
+      test_suites: "testsuitename/ESA/${params.SUITE}.robot",
+      node_label: "",
+      tribe_name: "",
+      squad_name: ""
+  )
+
+build job: 'automated-tests-0/update_robot_results_from_pipeline_to_elasticsearch'
