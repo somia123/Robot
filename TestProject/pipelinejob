@@ -1,0 +1,81 @@
+def path = "automated-tests-0/**/Library"
+def onboardingJob = "${path}/GBI_R1.1_Onboarding"
+def myGoalsJob = "${path}/GBI_R1.1_MyGoals"
+def E2EonboardingJob = "${path}/GBI_E2E_Onboarding"
+
+def ENV = "HTY_DFI"
+def TAG = "Smoke"
+
+parallel A: {
+            stage('Onboarding_FI') {
+                build job: "${onboardingJob}", 
+                parameters: [
+                    string(name:"ENV", value:ENV),
+                    string(name:"TAG", value:TAG),
+                    string(name:"LANG", value:"FI"),
+                    ]
+            }
+            }, 
+        B: {
+            stage('Onboarding_SV') {
+                build job: "${onboardingJob}", 
+                parameters: [
+                    string(name:"ENV", value:ENV),
+                    string(name:"TAG", value:TAG),
+                    string(name:"LANG", value:"SV"),
+                ]
+            }
+            },
+        C: {
+            stage('Onboarding_EN') {
+                build job: "${onboardingJob}", 
+                parameters: [
+                    string(name:"ENV", value:ENV),
+                    string(name:"TAG", value:TAG),
+                    string(name:"LANG", value:"EN"),
+                    ]
+            }
+        },
+        D: {
+            stage('MyGoals_FI') {
+                build job: myGoalsJob, 
+                parameters: [
+                    string(name:"ENV", value:ENV),
+                    string(name:"TAG", value:TAG),
+                    string(name:"LANG", value:"FI"),
+                    ]
+            }
+        },
+        E: {
+            stage('MyGoals_SV') {
+                build job: myGoalsJob, 
+                parameters: [
+                    string(name:"ENV", value:ENV),
+                    string(name:"TAG", value:TAG),
+                    string(name:"LANG", value:"SV"),
+                    ]
+            }
+        }, 
+        F: {
+            stage('MyGoals_EN') {
+                build job: myGoalsJob, 
+                parameters: [
+                    string(name:"ENV", value:ENV),
+                    string(name:"TAG", value:TAG),
+                    string(name:"LANG", value:"EN"),
+                    ]
+            }
+        
+        },
+        G: {
+            stage('Onboarding_E2E') {
+                build job: E2EonboardingJob, 
+                parameters: [
+                    string(name:"ENV", value:ENV),
+                    string(name:"TAG", value:TAG),
+                    ]
+            }
+        },
+    failFast: false
+    build.keepLog(true)
+	
